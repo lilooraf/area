@@ -1,0 +1,14 @@
+// Use this hook to manipulate incoming or outgoing data.
+// For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
+
+// eslint-disable-next-line no-unused-vars
+module.exports = (_options = {}) => {
+  return async context => {
+    const { data } = context;
+
+    if (!data.email || !data.password)
+      throw new Error('Email and password are required');
+
+    return context;
+  };
+};

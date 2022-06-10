@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+
+  # client_mobile:
+  #   container_name: area-client-mobile
+  #   build: ./client_mobile
+  #   working_dir: /home/gradle/mobile/
+  #   environment:
+  #       - IP_SERVER=192.168.1.15
+  #       - SERVER_PORT=3030
+  #   volumes:
+  #     - ./client_mobile/apk/:/home/gradle/mobile/apk/
+  #   restart: "on-failure"
+
+  server:
+    container_name: area-server
+    build: ./server
+    ports: ["8080:3030"]
+    expose:
+      - "3030"
+    networks:
+      - area-51
+    restart: "on-failure"
+
+  client_web:
+    container_name: area-client-web
+    build: ./client_web
+    environment:
+      - REACT_APP_SERVER_HOST=area-server
+      # - REACT_APP_SERVER_PORT=3030
+      - REACT_APP_SPOTIFY_ID=fb8ae80de8fb4275b4ecde6e09a144d9
+      - REACT_APP_MICROSOFT_ID=a8013030-a458-4b90-b0c6-aa517934d562
+
+    working_dir: /var/www/html/
+    ports: ["8081:3000"]
+    networks:
+      - area-51
+    depends_on: ["server"]
+    volumes:
+      - ./client_mobile/apk/:/var/www/html/src/apk/
+    restart: "on-failure"
+
+  # action-server:
+  #   container_name: area-action-server
+  #   build: ./action-server
+  #   depends_on: ["server"]
+  #   restart: "on-failure"
+
+
+networks:
+  area-51:

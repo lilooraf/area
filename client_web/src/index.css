@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+}
+
+.image-position {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5%;
+  height: auto;
+}
+
+.service-position {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+.switch-position {
+  display: inline;
+  justify-content: center;
+  align-items: stretch;
+}
